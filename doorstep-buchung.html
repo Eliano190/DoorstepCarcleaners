@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DoorStep Cleaners – Jetzt buchen</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fraunces:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c10;
+    --surface: #0e1620;
+    --surface2: #131e2c;
+    --border: rgba(255,255,255,0.07);
+    --gold: #c9a84c;
+    --gold-dim: rgba(201,168,76,0.12);
+    --gold-border: rgba(201,168,76,0.25);
+    --blue: #1a8fe3;
+    --green: #22c55e;
+    --text: #f0f4f8;
+    --muted: rgba(255,255,255,0.4);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .gold-line {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 16px;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--text);
+  }
+  .brand span { color: var(--gold); }
+  .brand-sub {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .tagline {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.55);
+    margin-top: 10px;
+    font-style: italic;
+  }
+  .tagline em { font-style: normal; color: var(--gold); }
+
+  .card {
+    width: 100%;
+    max-width: 520px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+  }
+  .card-header {
+    background: linear-gradient(135deg, var(--gold-dim), rgba(201,168,76,0.05));
+    border-bottom: 1px solid var(--gold-border);
+    padding: 20px 28px;
+  }
+  .card-title {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .card-body { padding: 24px 28px; display: flex; flex-direction: column; gap: 16px; }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .form-input, .form-select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input:focus, .form-select:focus { border-color: var(--gold-border); }
+  .form-select option { background: #0e1620; }
+
+  .preis-preview {
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .preis-label { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .preis-value {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--gold);
+  }
+
+  .btn-submit {
+    background: linear-gradient(135deg, var(--gold), #a07830);
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    color: #0e0a00;
+    font-size: 15px;
+    font-weight: 900;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    width: 100%;
+    transition: opacity 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .btn-submit:hover { opacity: 0.85; }
+  .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .success-box {
+    display: none;
+    text-align: center;
+    padding: 40px 28px;
+  }
+  .success-icon { font-size: 48px; margin-bottom: 16px; }
+  .success-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .success-text { font-size: 14px; font-weight: 600; color: var(--muted); line-height: 1.6; }
+
+  .info-boxes {
+    width: 100%;
+    max-width: 520px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .info-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+  .info-box-icon { font-size: 22px; margin-bottom: 6px; }
+  .info-box-title { font-size: 12px; font-weight: 800; color: var(--gold); margin-bottom: 4px; }
+  .info-box-text { font-size: 11px; font-weight: 600; color: var(--muted); line-height: 1.5; }
+
+  .footer-text {
+    margin-top: 24px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .form-row { grid-template-columns: 1fr; }
+    .info-boxes { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="gold-line"></div>
+  <div class="brand">DoorStep <span>Cleaners</span></div>
+  <div class="brand-sub">Köln · Innenraum Aufbereitung</div>
+  <div class="tagline">„Zwei motivierte <em>15-Jährige</em> – wir kommen zu dir."</div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">✦ Termin buchen</div>
+  </div>
+
+  <div id="formBox">
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Dein Name</label>
+          <input class="form-input" id="bName" placeholder="Vor- und Nachname" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefon / WhatsApp</label>
+          <input class="form-input" id="bTel" placeholder="+49 ..." type="tel">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Adresse (wo sollen wir hinkommen?)</label>
+        <input class="form-input" id="bAdresse" placeholder="Straße, Hausnummer, Köln" type="text">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Wunschdatum</label>
+          <input class="form-input" id="bDatum" type="date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Uhrzeit</label>
+          <input class="form-input" id="bUhrzeit" type="time">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Fahrzeugtyp</label>
+          <select class="form-select" id="bFahrzeug" onchange="preisBerechnen()">
+            <option value="">Auswählen...</option>
+            <option value="kleinwagen">Kleinwagen</option>
+            <option value="suv">SUV / Großraum</option>
+            <option value="kombi">Kombi</option>
+            <option value="van">Van</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Leistung</label>
+          <select class="form-select" id="bLeistung" onchange="preisBerechnen()">
+            <option value="">Auswählen...</option>
+            <option value="basis">Innenreinigung</option>
+            <option value="fenster">Innenreinigung + Fenster</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="preis-preview">
+        <div class="preis-label">Geschätzter Preis</div>
+        <div class="preis-value" id="preisAnzeige">– €</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Anmerkungen (optional)</label>
+        <input class="form-input" id="bNotiz" placeholder="z.B. Hund im Auto, starke Verschmutzung..." type="text">
+      </div>
+
+      <button class="btn-submit" id="btnSubmit" onclick="buchen()">✦ Jetzt verbindlich buchen</button>
+    </div>
+  </div>
+
+  <div class="success-box" id="successBox">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Buchung eingegangen!</div>
+    <div class="success-text">
+      Wir melden uns innerhalb von <strong style="color:var(--gold);">2 Stunden</strong> per WhatsApp um den Termin zu bestätigen.<br><br>
+      <strong>+49 151 57883622</strong>
+    </div>
+  </div>
+</div>
+
+<div class="info-boxes">
+  <div class="info-box">
+    <div class="info-box-icon">📍</div>
+    <div class="info-box-title">Wir kommen zu dir</div>
+    <div class="info-box-text">Ehrenfeld · Nippes · Weiden · Junkersdorf · Ringe</div>
+  </div>
+  <div class="info-box">
+    <div class="info-box-icon">⚡</div>
+    <div class="info-box-title">Schnell & zuverlässig</div>
+    <div class="info-box-text">Antwort innerhalb von 2 Stunden. Faire Preise, echte Qualität.</div>
+  </div>
+</div>
+
+<div class="footer-text">
+  Fragen? WhatsApp: +49 151 57883622 · elianorincon@icloud.com
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://pqtbcnseqmiimwtplpmp.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxdGJjbnNlcW1paW13dHBscG1wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjI1NDQsImV4cCI6MjA5NjU5ODU0NH0._xdgqFFmxL6rdo_DZ0ZEfmrbC1BXxyoxAP7AIl8uqtA';
+
+  const preise = {
+    kleinwagen: { basis: 15, fenster: 20 },
+    suv:        { basis: 20, fenster: 25 },
+    kombi:      { basis: 18, fenster: 23 },
+    van:        { basis: 22, fenster: 27 },
+  };
+
+  function preisBerechnen() {
+    const f = document.getElementById('bFahrzeug').value;
+    const l = document.getElementById('bLeistung').value;
+    if (f && l && preise[f] && preise[f][l]) {
+      document.getElementById('preisAnzeige').textContent = preise[f][l] + ' €';
+    } else {
+      document.getElementById('preisAnzeige').textContent = '– €';
+    }
+  }
+
+  async function buchen() {
+    const name = document.getElementById('bName').value.trim();
+    const tel = document.getElementById('bTel').value.trim();
+    const adresse = document.getElementById('bAdresse').value.trim();
+    const datum = document.getElementById('bDatum').value;
+    const uhrzeit = document.getElementById('bUhrzeit').value;
+    const fahrzeug = document.getElementById('bFahrzeug').value;
+    const leistung = document.getElementById('bLeistung').value;
+    const notiz = document.getElementById('bNotiz').value.trim();
+
+    if (!name || !tel || !adresse || !datum || !fahrzeug || !leistung) {
+      alert('Bitte alle Pflichtfelder ausfüllen.');
+      return;
+    }
+
+    const preis = (fahrzeug && leistung && preise[fahrzeug]) ? preise[fahrzeug][leistung] : null;
+
+    const btn = document.getElementById('btnSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet...';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/bookings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ name, telefon: tel, adresse, datum, uhrzeit: uhrzeit || null, fahrzeug, leistung, preis, notiz, status: 'offen' })
+      });
+
+      if (res.ok) {
+        document.getElementById('formBox').style.display = 'none';
+        document.getElementById('successBox').style.display = 'block';
+      } else {
+        throw new Error('Fehler');
+      }
+    } catch(e) {
+      alert('Fehler beim Senden. Bitte per WhatsApp kontaktieren: +49 151 57883622');
+      btn.disabled = false;
+      btn.textContent = '✦ Jetzt verbindlich buchen';
+    }
+  }
+
+  // Min-Datum = heute
+  document.getElementById('bDatum').min = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
