@@ -187,6 +187,22 @@
       </div>
     </div>
 
+    <!-- TAGE SPERREN -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Tage sperren</div>
+        <div style="font-size:11px;font-weight:700;color:var(--muted);" id="gesperrtCount">0 gesperrt</div>
+      </div>
+      <div style="padding:16px 20px;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;gap:8px;">
+          <input type="date" id="sperrDatum" style="flex:1;background:#131e2c;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px 12px;color:#f0f4f8;font-size:13px;font-family:Nunito,sans-serif;font-weight:600;outline:none;">
+          <button onclick="tagSperren()" style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:8px 14px;color:#ef4444;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;font-family:Nunito,sans-serif;">+ Sperren</button>
+        </div>
+        <div id="gesperrteList" style="display:flex;flex-direction:column;gap:6px;"></div>
+        <div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.25);line-height:1.5;">Gesperrte Tage sind im Buchungsportal nicht buchbar.</div>
+      </div>
+    </div>
+
     <div class="panel">
       <div class="panel-header"><div class="panel-title">Einnahmen</div></div>
       <div class="einnahmen-body">
