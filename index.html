@@ -581,25 +581,23 @@
     const leistung = document.getElementById('bLeistung').value;
     const notiz = document.getElementById('bNotiz').value.trim();
 
-    if (!name || !tel || !adresse || !datum || !fahrzeug || !leistung) {
-      alert('Bitte alle Pflichtfelder ausfüllen.');
+    if (!name || !tel || !adresse || !datum || !uhrzeit || !fahrzeug || !leistung) {
+      alert('Bitte alle Pflichtfelder ausfüllen – auch Uhrzeit.');
       return;
     }
 
-    if (uhrzeit) {
-      const tag = new Date(datum + 'T12:00:00').getDay();
-      const [h, m] = uhrzeit.split(':').map(Number);
-      const minuten = h * 60 + m;
-      if (tag === 0 || tag === 6) {
-        if (minuten < 11*60 || minuten > 17*60) {
-          alert('Am Wochenende sind nur Termine von 11:00 bis 17:00 Uhr möglich.');
-          return;
-        }
-      } else {
-        if (minuten < 15*60+30 || minuten > 18*60) {
-          alert('Unter der Woche sind nur Termine von 15:30 bis 18:00 Uhr möglich.');
-          return;
-        }
+    const tag = new Date(datum + 'T12:00:00').getDay();
+    const [h, m] = uhrzeit.split(':').map(Number);
+    const minuten = h * 60 + m;
+    if (tag === 0 || tag === 6) {
+      if (minuten < 11*60 || minuten > 17*60) {
+        alert('Am Wochenende sind nur Termine von 11:00 bis 17:00 Uhr möglich.');
+        return;
+      }
+    } else {
+      if (minuten < 15*60+30 || minuten > 18*60) {
+        alert('Unter der Woche sind nur Termine von 15:30 bis 18:00 Uhr möglich.');
+        return;
       }
     }
 
