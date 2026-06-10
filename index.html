@@ -586,6 +586,23 @@
       return;
     }
 
+    if (uhrzeit) {
+      const tag = new Date(datum + 'T12:00:00').getDay();
+      const [h, m] = uhrzeit.split(':').map(Number);
+      const minuten = h * 60 + m;
+      if (tag === 0 || tag === 6) {
+        if (minuten < 11*60 || minuten > 17*60) {
+          alert('Am Wochenende sind nur Termine von 11:00 bis 17:00 Uhr möglich.');
+          return;
+        }
+      } else {
+        if (minuten < 15*60+30 || minuten > 18*60) {
+          alert('Unter der Woche sind nur Termine von 15:30 bis 18:00 Uhr möglich.');
+          return;
+        }
+      }
+    }
+
     const preis = (fahrzeug && leistung && preise[fahrzeug]) ? preise[fahrzeug][leistung] : null;
     const btn = document.getElementById('btnSubmit');
     btn.disabled = true;
@@ -629,7 +646,44 @@
     }
   }
 
-  document.getElementById('bDatum').min = new Date().toISOString().split('T')[0];
+  const datumFeld = document.getElementById('bDatum');
+  const uhrzeitFeld = document.getElementById('bUhrzeit');
+  datumFeld.min = new Date().toISOString().split('T')[0];
+
+  function uhrzeitAktualisieren() {
+    const datum = datumFeld.value;
+    if (!datum) return;
+    const tag = new Date(datum + 'T12:00:00').getDay();
+    if (tag === 0 || tag === 6) {
+      uhrzeitFeld.min = '11:00';
+      uhrzeitFeld.max = '17:00';
+    } else {
+      uhrzeitFeld.min = '15:30';
+      uhrzeitFeld.max = '18:00';
+    }
+    if (uhrzeitFeld.value && (uhrzeitFeld.value < uhrzeitFeld.min || uhrzeitFeld.value > uhrzeitFeld.max)) {
+      uhrzeitFeld.value = '';
+    }
+  }
+
+  function uhrzeitHinweis() {
+    const datum = datumFeld.value;
+    let hint = document.getElementById('uhrzeitHinweis');
+    if (!hint) {
+      hint = document.createElement('div');
+      hint.id = 'uhrzeitHinweis';
+      hint.style.cssText = 'font-size:10px;font-weight:700;color:rgba(201,168,76,0.7);margin-top:4px;letter-spacing:0.5px;';
+      uhrzeitFeld.parentElement.appendChild(hint);
+    }
+    if (!datum) { hint.textContent = ''; return; }
+    const tag = new Date(datum + 'T12:00:00').getDay();
+    hint.textContent = (tag === 0 || tag === 6) ? '⏰ Wochenende: 11:00 – 17:00 Uhr' : '⏰ Mo–Fr: 15:30 – 18:00 Uhr';
+  }
+
+  datumFeld.addEventListener('change', () => {
+    uhrzeitAktualisieren();
+    uhrzeitHinweis();
+  });
 </script>
 </body>
 </html>
