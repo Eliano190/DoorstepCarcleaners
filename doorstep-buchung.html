@@ -198,7 +198,7 @@
 <div class="header">
   <div class="gold-line"></div>
   <div class="brand">DoorStep <span>Cleaners</span></div>
-  <div class="brand-sub">Köln · Innenraum Aufbereitung</div>
+  <div class="brand-sub">Köln · Innenraum Reinigung</div>
   <div class="tagline">„Zwei motivierte <em>15-Jährige</em> – wir kommen zu dir."</div>
 </div>
 
@@ -242,9 +242,9 @@
           <select class="form-select" id="bFahrzeug" onchange="preisBerechnen()">
             <option value="">Auswählen...</option>
             <option value="kleinwagen">Kleinwagen</option>
-            <option value="suv">SUV / Großraum</option>
             <option value="kombi">Kombi</option>
-            <option value="van">Van</option>
+            <option value="suv">SUV / Großraum</option>
+            <option value="van">VW Bus / Van</option>
           </select>
         </div>
         <div class="form-group">
@@ -285,7 +285,7 @@
   <div class="info-box">
     <div class="info-box-icon">📍</div>
     <div class="info-box-title">Wir kommen zu dir</div>
-    <div class="info-box-text">Ehrenfeld · Nippes · Weiden · Junkersdorf · Ringe</div>
+    <div class="info-box-text">Ehrenfeld · Nippes · Weiden · Junkersdorf · Belgisches Viertel</div>
   </div>
   <div class="info-box">
     <div class="info-box-icon">⚡</div>
@@ -303,10 +303,10 @@
   const SUPABASE_KEY = 'sb_publishable_DLig-A0eJry-nw5P5GYZbQ_qvt-Ck6-';
 
   const preise = {
-    kleinwagen: { basis: 15, fenster: 20 },
-    suv:        { basis: 20, fenster: 25 },
-    kombi:      { basis: 18, fenster: 23 },
-    van:        { basis: 22, fenster: 27 },
+    kleinwagen: { basis: 20, fenster: 25 },
+    kombi:      { basis: 23, fenster: 28 },
+    suv:        { basis: 25, fenster: 30 },
+    van:        { basis: 45, fenster: 50 },
   };
 
   function preisBerechnen() {
@@ -364,6 +364,17 @@
       btn.textContent = '✦ Jetzt verbindlich buchen';
     }
   }
+
+
+  // Gesperrte Tage aus localStorage laden und im Datepicker blockieren
+  const gesperrte = JSON.parse(localStorage.getItem('doorstep_gesperrt') || '[]');
+  const datumInput = document.getElementById('bDatum');
+  datumInput.addEventListener('input', () => {
+    if (gesperrte.includes(datumInput.value)) {
+      datumInput.value = '';
+      alert('Dieser Tag ist leider nicht verfügbar. Bitte wähle ein anderes Datum.');
+    }
+  });
 
   // Min-Datum = heute
   document.getElementById('bDatum').min = new Date().toISOString().split('T')[0];

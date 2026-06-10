@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DoorStep Cleaners – Hochwertige Innenraum Reinigung</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fraunces:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c10;
+    --surface: #0e1620;
+    --surface2: #131e2c;
+    --border: rgba(255,255,255,0.07);
+    --gold: #c9a84c;
+    --gold-dim: rgba(201,168,76,0.12);
+    --gold-border: rgba(201,168,76,0.25);
+    --blue: #1a8fe3;
+    --green: #22c55e;
+    --red: #ef4444;
+    --text: #f0f4f8;
+    --muted: rgba(255,255,255,0.4);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(8,12,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 900; color: var(--text); }
+  .nav-brand span { color: var(--gold); }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a { font-size: 12px; font-weight: 700; color: var(--muted); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold); border: none; border-radius: 8px; padding: 8px 16px; font-size: 12px; font-weight: 900; color: #0e0a00; cursor: pointer; font-family: 'Nunito', sans-serif; text-decoration: none; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 60%);
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    position: relative; z-index: 1;
+  }
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 8vw, 72px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 16px;
+    position: relative; z-index: 1;
+  }
+  .hero-title span { color: var(--gold); }
+  .hero-sub {
+    font-size: clamp(14px, 2.5vw, 18px);
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 40px;
+    max-width: 500px;
+    line-height: 1.6;
+    position: relative; z-index: 1;
+  }
+  .hero-sub em { font-style: normal; color: rgba(255,255,255,0.7); }
+  .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; margin-bottom: 60px; }
+  .btn-primary { background: linear-gradient(135deg, var(--gold), #a07830); border: none; border-radius: 12px; padding: 16px 32px; font-size: 15px; font-weight: 900; color: #0e0a00; cursor: pointer; font-family: 'Nunito', sans-serif; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-secondary { background: transparent; border: 1px solid var(--border); border-radius: 12px; padding: 16px 32px; font-size: 15px; font-weight: 800; color: var(--text); cursor: pointer; font-family: 'Nunito', sans-serif; text-decoration: none; display: inline-block; transition: border-color 0.2s; }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
+  .hero-stat { text-align: center; }
+  .hero-stat-val { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 900; color: var(--gold); }
+  .hero-stat-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+
+  .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; animation: bounce 2s infinite; }
+  .scroll-hint-arrow { width: 20px; height: 20px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: rotate(45deg); }
+  @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+  /* ── SECTION BASE ── */
+  section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; text-align: center; }
+  .section-title { font-family: 'Fraunces', serif; font-size: clamp(28px, 5vw, 42px); font-weight: 900; color: var(--text); text-align: center; margin-bottom: 12px; line-height: 1.2; }
+  .section-title span { color: var(--gold); }
+  .section-sub { font-size: 15px; font-weight: 600; color: var(--muted); text-align: center; max-width: 500px; margin: 0 auto 48px; line-height: 1.6; }
+
+  /* ── VORHER NACHHER ── */
+  .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .result-images { display: grid; grid-template-columns: 1fr 1fr; }
+  .result-slot {
+    aspect-ratio: 4/3;
+    background: var(--surface2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .result-slot input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .result-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .result-slot-label { font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; position: relative; z-index: 1; }
+  .slot-before .result-slot-label { background: rgba(239,68,68,0.2); color: var(--red); }
+  .slot-after .result-slot-label { background: rgba(34,197,94,0.2); color: var(--green); }
+  .slot-icon { font-size: 24px; position: relative; z-index: 1; }
+  .slot-hint { font-size: 10px; font-weight: 600; color: var(--muted); position: relative; z-index: 1; }
+  .result-divider { width: 2px; background: var(--bg); }
+  .result-footer { padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+  .result-car { font-size: 12px; font-weight: 800; color: var(--text); }
+  .result-badge { font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; background: var(--green-dim); color: var(--green); padding: 3px 8px; border-radius: 20px; background: rgba(34,197,94,0.12); }
+
+  /* ── PREISE ── */
+  .preise-section { background: var(--surface); border-radius: 24px; padding: 48px 32px; border: 1px solid var(--border); }
+  .preise-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 40px; }
+  .preis-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 24px 20px; position: relative; overflow: hidden; transition: border-color 0.2s; }
+  .preis-card:hover { border-color: var(--gold-border); }
+  .preis-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .preis-fahrzeug { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .preis-icon { font-size: 28px; margin-bottom: 12px; }
+  .preis-name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 900; color: var(--text); margin-bottom: 16px; }
+  .preis-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .preis-row:last-child { border-bottom: none; }
+  .preis-leistung { font-size: 12px; font-weight: 700; color: var(--muted); }
+  .preis-val { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 900; color: var(--gold); }
+
+  /* ── ÜBER UNS ── */
+  .ueber-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+  .person-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 28px; position: relative; overflow: hidden; }
+  .person-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .person-avatar { width: 56px; height: 56px; background: linear-gradient(135deg, var(--gold), #a07830); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 24px; font-weight: 900; color: #0e0a00; margin-bottom: 16px; }
+  .person-name { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 4px; }
+  .person-role { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .person-age { font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 16px; }
+  .person-desc { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+  .story-box { background: var(--gold-dim); border: 1px solid var(--gold-border); border-radius: 20px; padding: 32px; margin-top: 24px; }
+  .story-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900; color: var(--gold); margin-bottom: 12px; }
+  .story-text { font-size: 14px; font-weight: 600; color: rgba(201,168,76,0.8); line-height: 1.8; }
+
+  .usps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+  .usp-item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; text-align: center; }
+  .usp-icon { font-size: 24px; margin-bottom: 8px; }
+  .usp-title { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .usp-desc { font-size: 11px; font-weight: 600; color: var(--muted); line-height: 1.5; }
+
+  /* ── REGION ── */
+  .region-box { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-align: center; margin-top: 48px; }
+  .region-tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+  .region-tag { background: var(--gold-dim); border: 1px solid var(--gold-border); border-radius: 20px; padding: 8px 18px; font-size: 13px; font-weight: 800; color: var(--gold); }
+
+  /* ── BUCHUNG ── */
+  .buchung-section { background: var(--surface); border-radius: 24px; padding: 48px 32px; border: 1px solid var(--border); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .form-input, .form-select { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; color: var(--text); font-size: 14px; font-family: 'Nunito', sans-serif; font-weight: 600; outline: none; transition: border-color 0.2s; width: 100%; }
+  .form-input:focus, .form-select:focus { border-color: var(--gold-border); }
+  .form-select option { background: #0e1620; }
+  .preis-preview { background: var(--gold-dim); border: 1px solid var(--gold-border); border-radius: 12px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; grid-column: 1 / -1; }
+  .preis-preview-label { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .preis-preview-val { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 900; color: var(--gold); }
+  .btn-buchen { background: linear-gradient(135deg, var(--gold), #a07830); border: none; border-radius: 12px; padding: 16px; color: #0e0a00; font-size: 15px; font-weight: 900; font-family: 'Nunito', sans-serif; cursor: pointer; width: 100%; grid-column: 1 / -1; transition: opacity 0.2s; }
+  .btn-buchen:hover { opacity: 0.85; }
+  .btn-buchen:disabled { opacity: 0.4; cursor: not-allowed; }
+  .success-box { display: none; text-align: center; padding: 40px; }
+  .success-icon { font-size: 48px; margin-bottom: 16px; }
+  .success-title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 900; color: var(--green); margin-bottom: 8px; }
+  .success-text { font-size: 14px; font-weight: 600; color: var(--muted); line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
+  .footer-brand { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+  .footer-brand span { color: var(--gold); }
+  .footer-contact { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin: 16px 0; }
+  .footer-contact a { font-size: 13px; font-weight: 700; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-contact a:hover { color: var(--gold); }
+  .footer-copy { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.2); margin-top: 16px; }
+
+  /* DIVIDER */
+  .section-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .ueber-grid { grid-template-columns: 1fr; }
+    .usps-grid { grid-template-columns: 1fr 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: 1; }
+    .preis-preview { grid-column: 1; }
+    .btn-buchen { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">DoorStep <span>Cleaners</span></div>
+  <div class="nav-links">
+    <a href="#ergebnisse">Ergebnisse</a>
+    <a href="#preise">Preise</a>
+    <a href="#ueber-uns">Über uns</a>
+  </div>
+  <a href="#buchen" class="nav-cta">Jetzt buchen</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">💧 Hochwertige Innenraum Reinigung · Köln</div>
+  <h1 class="hero-title">DoorStep<br><span>Cleaners</span></h1>
+  <p class="hero-sub">
+    <em>Wir kommen zu dir.</em> Hochwertige Innenraum Reinigung direkt vor deiner Haustür – schnell, gründlich, zum fairen Preis.
+  </p>
+  <div class="hero-buttons">
+    <a href="#buchen" class="btn-primary">✦ Jetzt Termin buchen</a>
+    <a href="#ergebnisse" class="btn-secondary">Ergebnisse ansehen</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-val">ab 20 €</div>
+      <div class="hero-stat-label">Startpreis</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">5+</div>
+      <div class="hero-stat-label">Stadtteile</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">2h</div>
+      <div class="hero-stat-label">Antwortzeit</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-hint-arrow"></div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ERGEBNISSE -->
+<section id="ergebnisse">
+  <div class="section-label">Unsere Arbeit</div>
+  <h2 class="section-title">Vorher & <span>Nachher</span></h2>
+  <p class="section-sub">Klicke auf die Slots um eigene Fotos hinzuzufügen.</p>
+
+  <div class="results-grid">
+
+    <!-- Karte 1 -->
+    <div class="result-card">
+      <div class="result-images">
+        <div class="result-slot slot-before" onclick="this.querySelector('input').click()">
+          <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
+          <div class="result-slot-label">Vorher</div>
+          <div class="slot-icon">📷</div>
+          <div class="slot-hint">Foto hinzufügen</div>
+        </div>
+        <div class="result-slot slot-after" onclick="this.querySelector('input').click()">
+          <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
+          <div class="result-slot-label">Nachher</div>
+          <div class="slot-icon">✨</div>
+          <div class="slot-hint">Foto hinzufügen</div>
+        </div>
+      </div>
+      <div class="result-footer">
+        <div class="result-car">Kleinwagen · Innenraum</div>
+        <div class="result-badge">Gereinigt ✓</div>
+      </div>
+    </div>
+
+    <!-- Karte 2 -->
+    <div class="result-card">
+      <div class="result-images">
+        <div class="result-slot slot-before" onclick="this.querySelector('input').click()">
+          <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
+          <div class="result-slot-label">Vorher</div>
+          <div class="slot-icon">📷</div>
+          <div class="slot-hint">Foto hinzufügen</div>
+        </div>
+        <div class="result-slot slot-after" onclick="this.querySelector('input').click()">
+          <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
+          <div class="result-slot-label">Nachher</div>
+          <div class="slot-icon">✨</div>
+          <div class="slot-hint">Foto hinzufügen</div>
+        </div>
+      </div>
+      <div class="result-footer">
+        <div class="result-car">SUV · Komplettpaket</div>
+        <div class="result-badge">Gereinigt ✓</div>
+      </div>
+    </div>
+
+    <!-- Karte 3 -->
+    <div class="result-card">
+      <div class="result-images">
+        <div class="result-slot slot-before" onclick="this.querySelector('input').click()">
+          <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
+          <div class="result-slot-label">Vorher</div>
+          <div class="slot-icon">📷</div>
+          <div class="slot-hint">Foto hinzufügen</div>
+        </div>
+        <div class="result-slot slot-after" onclick="this.querySelector('input').click()">
+          <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
+          <div class="result-slot-label">Nachher</div>
+          <div class="slot-icon">✨</div>
+          <div class="slot-hint">Foto hinzufügen</div>
+        </div>
+      </div>
+      <div class="result-footer">
+        <div class="result-car">Kombi · Mit Fenster</div>
+        <div class="result-badge">Gereinigt ✓</div>
+      </div>
+    </div>
+
+    <!-- Karte 4 -->
+    <div class="result-card">
+      <div class="result-images">
+        <div class="result-slot slot-before" onclick="this.querySelector('input').click()">
+          <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
+          <div class="result-slot-label">Vorher</div>
+          <div class="slot-icon">📷</div>
+          <div class="slot-hint">Foto hinzufügen</div>
+        </div>
+        <div class="result-slot slot-after" onclick="this.querySelector('input').click()">
+          <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
+          <div class="result-slot-label">Nachher</div>
+          <div class="slot-icon">✨</div>
+          <div class="slot-hint">Foto hinzufügen</div>
+        </div>
+      </div>
+      <div class="result-footer">
+        <div class="result-car">VW Bus · Innenraum</div>
+        <div class="result-badge">Gereinigt ✓</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PREISE -->
+<section id="preise">
+  <div class="preise-section">
+    <div class="section-label">Transparent & fair</div>
+    <h2 class="section-title">Unsere <span>Preise</span></h2>
+    <p class="section-sub">Keine versteckten Kosten. Kein Schnickschnack.</p>
+    <div class="preise-grid">
+      <div class="preis-card">
+        <div class="preis-icon">🚗</div>
+        <div class="preis-name">Kleinwagen</div>
+        <div class="preis-row"><div class="preis-leistung">Innenreinigung</div><div class="preis-val">20 €</div></div>
+        <div class="preis-row"><div class="preis-leistung">Mit Fenster</div><div class="preis-val">25 €</div></div>
+      </div>
+      <div class="preis-card">
+        <div class="preis-icon">🚙</div>
+        <div class="preis-name">Kombi</div>
+        <div class="preis-row"><div class="preis-leistung">Innenreinigung</div><div class="preis-val">23 €</div></div>
+        <div class="preis-row"><div class="preis-leistung">Mit Fenster</div><div class="preis-val">28 €</div></div>
+      </div>
+      <div class="preis-card">
+        <div class="preis-icon">🛻</div>
+        <div class="preis-name">SUV / Großraum</div>
+        <div class="preis-row"><div class="preis-leistung">Innenreinigung</div><div class="preis-val">25 €</div></div>
+        <div class="preis-row"><div class="preis-leistung">Mit Fenster</div><div class="preis-val">30 €</div></div>
+      </div>
+      <div class="preis-card">
+        <div class="preis-icon">🚐</div>
+        <div class="preis-name">VW Bus / Van</div>
+        <div class="preis-row"><div class="preis-leistung">Innenreinigung</div><div class="preis-val">45 €</div></div>
+        <div class="preis-row"><div class="preis-leistung">Mit Fenster</div><div class="preis-val">50 €</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ÜBER UNS -->
+<section id="ueber-uns">
+  <div class="section-label">Wer steckt dahinter?</div>
+  <h2 class="section-title">Über <span>uns</span></h2>
+  <p class="section-sub">Zwei 15-Jährige aus Köln die nicht warten wollten.</p>
+
+  <div class="ueber-grid">
+    <div class="person-card">
+      <div class="person-avatar">M</div>
+      <div class="person-name">Moritz</div>
+      <div class="person-role">Gründer</div>
+      <div class="person-age">15 Jahre · Köln</div>
+      <div class="person-desc">Organisiert, ehrgeizig und immer auf der Suche nach der nächsten Idee. Kümmert sich ums Business, die Kundenkommunikation und sorgt dafür dass alles reibungslos läuft.</div>
+    </div>
+    <div class="person-card">
+      <div class="person-avatar">E</div>
+      <div class="person-name">Eliano</div>
+      <div class="person-role">Gründer</div>
+      <div class="person-age">15 Jahre · Köln</div>
+      <div class="person-desc">Detailverliebt und zuverlässig. Sorgt dafür dass jedes Fahrzeug so sauber verlässt wie es sein soll – kein Kompromiss, keine halben Sachen.</div>
+    </div>
+  </div>
+
+  <div class="story-box">
+    <div class="story-title">Unsere Story</div>
+    <div class="story-text">
+      Wir sind Moritz & Eliano – zwei 15-Jährige aus Köln, die nicht warten wollten bis sie erwachsen sind um ihr erstes Business zu starten. Statt Taschengeld verdienen wir uns unser Geld selbst – mit echter Arbeit und echtem Ergebnis. Wir behandeln euer Auto so als wäre es unser eigenes. Faire Preise, ehrliche Arbeit – kein Bullshit.
+    </div>
+  </div>
+
+  <div class="usps-grid">
+    <div class="usp-item">
+      <div class="usp-icon">📍</div>
+      <div class="usp-title">Wir kommen zu dir</div>
+      <div class="usp-desc">Kein Fahren nötig – wir kommen direkt zu deinem Fahrzeug.</div>
+    </div>
+    <div class="usp-item">
+      <div class="usp-icon">⚡</div>
+      <div class="usp-title">Schnelle Antwort</div>
+      <div class="usp-desc">Wir melden uns innerhalb von 2 Stunden per WhatsApp.</div>
+    </div>
+    <div class="usp-item">
+      <div class="usp-icon">💎</div>
+      <div class="usp-title">Hohe Qualität</div>
+      <div class="usp-desc">Professionelles Equipment, sorgfältige Arbeit – jedes Mal.</div>
+    </div>
+  </div>
+
+  <div class="region-box">
+    <div class="section-label">Einsatzgebiet</div>
+    <h3 style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;">Wir sind in diesen Kölner Stadtteilen</h3>
+    <div class="region-tags">
+      <div class="region-tag">📍 Ehrenfeld</div>
+      <div class="region-tag">📍 Nippes</div>
+      <div class="region-tag">📍 Weiden</div>
+      <div class="region-tag">📍 Junkersdorf</div>
+      <div class="region-tag">📍 Belgisches Viertel</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- BUCHUNG -->
+<section id="buchen">
+  <div class="buchung-section">
+    <div class="section-label">Direkt hier buchen</div>
+    <h2 class="section-title">Jetzt Termin <span>sichern</span></h2>
+    <p class="section-sub">Fülle das Formular aus – wir melden uns innerhalb von 2 Stunden.</p>
+
+    <div id="formBox">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Dein Name</label>
+          <input class="form-input" id="bName" placeholder="Vor- und Nachname" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefon / WhatsApp</label>
+          <input class="form-input" id="bTel" placeholder="+49 ..." type="tel">
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Adresse (wo sollen wir hinkommen?)</label>
+          <input class="form-input" id="bAdresse" placeholder="Straße, Hausnummer, Köln" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Wunschdatum</label>
+          <input class="form-input" id="bDatum" type="date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Uhrzeit</label>
+          <input class="form-input" id="bUhrzeit" type="time">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Fahrzeugtyp</label>
+          <select class="form-select" id="bFahrzeug" onchange="preisBerechnen()">
+            <option value="">Auswählen...</option>
+            <option value="kleinwagen">Kleinwagen</option>
+            <option value="kombi">Kombi</option>
+            <option value="suv">SUV / Großraum</option>
+            <option value="van">VW Bus / Van</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Leistung</label>
+          <select class="form-select" id="bLeistung" onchange="preisBerechnen()">
+            <option value="">Auswählen...</option>
+            <option value="basis">Innenreinigung</option>
+            <option value="fenster">Innenreinigung + Fenster</option>
+          </select>
+        </div>
+        <div class="preis-preview">
+          <div class="preis-preview-label">Geschätzter Preis</div>
+          <div class="preis-preview-val" id="preisAnzeige">– €</div>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Anmerkungen (optional)</label>
+          <input class="form-input" id="bNotiz" placeholder="z.B. starke Verschmutzung, Hund im Auto..." type="text">
+        </div>
+        <button class="btn-buchen" id="btnSubmit" onclick="buchen()">✦ Jetzt verbindlich buchen</button>
+      </div>
+    </div>
+
+    <div class="success-box" id="successBox">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Buchung eingegangen!</div>
+      <div class="success-text">Wir melden uns innerhalb von <strong style="color:var(--gold);">2 Stunden</strong> per WhatsApp.<br><br><strong>+49 151 57883622</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">DoorStep <span>Cleaners</span></div>
+  <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px;">Hochwertige Innenraum Reinigung · Köln</div>
+  <div class="footer-contact">
+    <a href="tel:+4915157883622">📱 +49 151 57883622</a>
+    <a href="mailto:elianorincon@icloud.com">✉️ elianorincon@icloud.com</a>
+    <a href="#buchen">✦ Jetzt buchen</a>
+  </div>
+  <div class="footer-copy">© 2025 DoorStep Cleaners · Moritz & Eliano · Köln</div>
+</footer>
+
+<script>
+  const SUPABASE_URL = 'https://pqtbcnseqmiimwtplpmp.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_DLig-A0eJry-nw5P5GYZbQ_qvt-Ck6-';
+
+  const preise = {
+    kleinwagen: { basis: 20, fenster: 25 },
+    kombi:      { basis: 23, fenster: 28 },
+    suv:        { basis: 25, fenster: 30 },
+    van:        { basis: 45, fenster: 50 },
+  };
+
+  function preisBerechnen() {
+    const f = document.getElementById('bFahrzeug').value;
+    const l = document.getElementById('bLeistung').value;
+    document.getElementById('preisAnzeige').textContent = (f && l && preise[f]) ? preise[f][l] + ' €' : '– €';
+  }
+
+  async function buchen() {
+    const name = document.getElementById('bName').value.trim();
+    const tel = document.getElementById('bTel').value.trim();
+    const adresse = document.getElementById('bAdresse').value.trim();
+    const datum = document.getElementById('bDatum').value;
+    const uhrzeit = document.getElementById('bUhrzeit').value;
+    const fahrzeug = document.getElementById('bFahrzeug').value;
+    const leistung = document.getElementById('bLeistung').value;
+    const notiz = document.getElementById('bNotiz').value.trim();
+
+    if (!name || !tel || !adresse || !datum || !fahrzeug || !leistung) {
+      alert('Bitte alle Pflichtfelder ausfüllen.');
+      return;
+    }
+
+    const preis = (fahrzeug && leistung && preise[fahrzeug]) ? preise[fahrzeug][leistung] : null;
+    const btn = document.getElementById('btnSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet...';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/bookings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ name, telefon: tel, adresse, datum, uhrzeit: uhrzeit || null, fahrzeug, leistung, preis, notiz, status: 'offen' })
+      });
+
+      if (res.ok) {
+        document.getElementById('formBox').style.display = 'none';
+        document.getElementById('successBox').style.display = 'block';
+      } else { throw new Error(); }
+    } catch(e) {
+      alert('Fehler beim Senden. Bitte per WhatsApp: +49 151 57883622');
+      btn.disabled = false;
+      btn.textContent = '✦ Jetzt verbindlich buchen';
+    }
+  }
+
+  function zeigeVorschau(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const slot = input.parentElement;
+        let img = slot.querySelector('img');
+        if (!img) { img = document.createElement('img'); slot.appendChild(img); }
+        img.src = e.target.result;
+        slot.querySelector('.slot-icon').style.display = 'none';
+        slot.querySelector('.slot-hint').style.display = 'none';
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  document.getElementById('bDatum').min = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
