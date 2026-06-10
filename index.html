@@ -285,13 +285,13 @@
     <!-- Karte 1 -->
     <div class="result-card">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="this.querySelector('input').click()">
+        <div class="result-slot slot-before" onclick="fotoHochladen(this)">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
           <div class="slot-hint">Foto hinzufügen</div>
         </div>
-        <div class="result-slot slot-after" onclick="this.querySelector('input').click()">
+        <div class="result-slot slot-after" onclick="fotoHochladen(this)">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
@@ -307,13 +307,13 @@
     <!-- Karte 2 -->
     <div class="result-card">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="this.querySelector('input').click()">
+        <div class="result-slot slot-before" onclick="fotoHochladen(this)">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
           <div class="slot-hint">Foto hinzufügen</div>
         </div>
-        <div class="result-slot slot-after" onclick="this.querySelector('input').click()">
+        <div class="result-slot slot-after" onclick="fotoHochladen(this)">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
@@ -329,13 +329,13 @@
     <!-- Karte 3 -->
     <div class="result-card">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="this.querySelector('input').click()">
+        <div class="result-slot slot-before" onclick="fotoHochladen(this)">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
           <div class="slot-hint">Foto hinzufügen</div>
         </div>
-        <div class="result-slot slot-after" onclick="this.querySelector('input').click()">
+        <div class="result-slot slot-after" onclick="fotoHochladen(this)">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
@@ -351,13 +351,13 @@
     <!-- Karte 4 -->
     <div class="result-card">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="this.querySelector('input').click()">
+        <div class="result-slot slot-before" onclick="fotoHochladen(this)">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
           <div class="slot-hint">Foto hinzufügen</div>
         </div>
-        <div class="result-slot slot-after" onclick="this.querySelector('input').click()">
+        <div class="result-slot slot-after" onclick="fotoHochladen(this)">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
@@ -627,6 +627,20 @@
       btn.disabled = false;
       btn.textContent = '✦ Jetzt verbindlich buchen';
     }
+  }
+
+  let fotoFreigegeben = false;
+
+  function fotoHochladen(slot) {
+    if (!fotoFreigegeben) {
+      const pw = prompt('Passwort eingeben:');
+      if (pw !== '2819Cars') {
+        if (pw !== null) alert('Falsches Passwort.');
+        return;
+      }
+      fotoFreigegeben = true;
+    }
+    slot.querySelector('input').click();
   }
 
   function zeigeVorschau(input) {
