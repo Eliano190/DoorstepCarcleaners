@@ -299,7 +299,7 @@
         </div>
       </div>
       <div class="result-footer">
-        <div class="result-car">Kleinwagen · Innenraum</div>
+        <div class="result-car">🧹 Fußmatten</div>
         <div class="result-badge">Gereinigt ✓</div>
       </div>
     </div>
@@ -321,7 +321,7 @@
         </div>
       </div>
       <div class="result-footer">
-        <div class="result-car">SUV · Komplettpaket</div>
+        <div class="result-car">🎛️ Cockpit</div>
         <div class="result-badge">Gereinigt ✓</div>
       </div>
     </div>
@@ -343,7 +343,7 @@
         </div>
       </div>
       <div class="result-footer">
-        <div class="result-car">Kombi · Mit Fenster</div>
+        <div class="result-car">📦 Kofferraum</div>
         <div class="result-badge">Gereinigt ✓</div>
       </div>
     </div>
@@ -365,7 +365,7 @@
         </div>
       </div>
       <div class="result-footer">
-        <div class="result-car">VW Bus · Innenraum</div>
+        <div class="result-car">💺 Sitze</div>
         <div class="result-badge">Gereinigt ✓</div>
       </div>
     </div>
@@ -589,9 +589,14 @@
     const tag = new Date(datum + 'T12:00:00').getDay();
     const [h, m] = uhrzeit.split(':').map(Number);
     const minuten = h * 60 + m;
-    if (tag === 0 || tag === 6) {
+    if (tag === 6) {
+      if (minuten < 11*60 || minuten > 16*60) {
+        alert('Samstag: nur Termine von 11:00 bis 16:00 Uhr möglich.');
+        return;
+      }
+    } else if (tag === 0) {
       if (minuten < 11*60 || minuten > 17*60) {
-        alert('Am Wochenende sind nur Termine von 11:00 bis 17:00 Uhr möglich.');
+        alert('Sonntag: nur Termine von 11:00 bis 17:00 Uhr möglich.');
         return;
       }
     } else {
@@ -666,7 +671,10 @@
     const datum = datumFeld.value;
     if (!datum) return;
     const tag = new Date(datum + 'T12:00:00').getDay();
-    if (tag === 0 || tag === 6) {
+    if (tag === 6) {
+      uhrzeitFeld.min = '11:00';
+      uhrzeitFeld.max = '16:00';
+    } else if (tag === 0) {
       uhrzeitFeld.min = '11:00';
       uhrzeitFeld.max = '17:00';
     } else {
@@ -689,7 +697,7 @@
     }
     if (!datum) { hint.textContent = ''; return; }
     const tag = new Date(datum + 'T12:00:00').getDay();
-    hint.textContent = (tag === 0 || tag === 6) ? '⏰ Wochenende: 11:00 – 17:00 Uhr' : '⏰ Mo–Fr: 15:30 – 18:00 Uhr';
+    hint.textContent = tag === 6 ? '⏰ Samstag: 11:00 – 16:00 Uhr' : tag === 0 ? '⏰ Sonntag: 11:00 – 17:00 Uhr' : '⏰ Mo–Fr: 15:30 – 18:00 Uhr';
   }
 
   datumFeld.addEventListener('change', () => {
