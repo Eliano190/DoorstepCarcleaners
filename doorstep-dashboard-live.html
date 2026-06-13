@@ -344,23 +344,50 @@
   }
 
 
-  let gesperrte = JSON.parse(localStorage.getItem('doorstep_gesperrt') || '[]');
+  let gesperrte = [];
 
-  function tagSperren() {
+  async function gesperrteladen() {
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/blocked_dates?order=datum.asc', {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      gesperrte = Array.isArray(data) ? data.map(d => d.datum) : [];
+      renderGesperrt();
+    } catch(e) { console.error('Fehler beim Laden gesperrter Tage', e); renderGesperrt(); }
+  }
+
+  async function tagSperren() {
     const datum = document.getElementById('sperrDatum').value;
     if (!datum) return;
     if (gesperrte.includes(datum)) { alert('Dieser Tag ist bereits gesperrt.'); return; }
-    gesperrte.push(datum);
-    gesperrte.sort();
-    localStorage.setItem('doorstep_gesperrt', JSON.stringify(gesperrte));
-    renderGesperrt();
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/blocked_dates', {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ datum: datum })
+      });
+      if (res.ok) { document.getElementById('sperrDatum').value = ''; gesperrteladen(); }
+      else { alert('Fehler beim Sperren.'); }
+    } catch(e) { alert('Verbindungsfehler.'); }
   }
 
-  function tagEntsperren(datum) {
-    gesperrte = gesperrte.filter(d => d !== datum);
-    localStorage.setItem('doorstep_gesperrt', JSON.stringify(gesperrte));
-    renderGesperrt();
+  async function tagEntsperren(datum) {
+    try {
+      await fetch(SUPABASE_URL + '/rest/v1/blocked_dates?datum=eq.' + datum, {
+        method: 'DELETE',
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+      });
+      gesperrteladen();
+    } catch(e) { alert('Verbindungsfehler.'); }
   }
+
 
   function renderGesperrt() {
     document.getElementById('gesperrtCount').textContent = gesperrte.length + ' gesperrt';
@@ -373,9 +400,10 @@
         }).join('');
   }
 
-  renderGesperrt();
+  gesperrteladen();
 
   laden();
+  gesperrteladen();
   setInterval(laden, 30000); // Auto-refresh alle 30 Sekunden
 </script>
 </body>

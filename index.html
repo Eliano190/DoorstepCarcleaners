@@ -716,6 +716,20 @@
     document.getElementById('preisAnzeige').textContent = (f && l && preise[f]) ? preise[f][l] + ' €' : '– €';
   }
 
+
+  async function gesperrteladen() {
+    try {
+      const res = await fetch('https://pqtbcnseqmiimwtplpmp.supabase.co/rest/v1/blocked_dates?select=datum', {
+        headers: {
+          'apikey': 'sb_publishable_DLig-A0eJry-nw5P5GYZbQ_qvt-Ck6-',
+          'Authorization': 'Bearer sb_publishable_DLig-A0eJry-nw5P5GYZbQ_qvt-Ck6-'
+        }
+      });
+      const data = await res.json();
+      return data.map(d => d.datum);
+    } catch(e) { return []; }
+  }
+
   async function buchen() {
     const name = document.getElementById('bName').value.trim();
     const tel = document.getElementById('bTel').value.trim();
@@ -755,6 +769,14 @@
     const btn = document.getElementById('btnSubmit');
     btn.disabled = true;
     btn.textContent = 'Wird gesendet...';
+
+    const gesperrte = await gesperrteladen();
+    if (gesperrte.includes(datum)) {
+      alert('Dieser Tag ist leider nicht verfügbar. Bitte wähle ein anderes Datum.');
+      btn.disabled = false;
+      btn.textContent = '✦ Jetzt verbindlich buchen';
+      return;
+    }
 
     try {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/bookings`, {
