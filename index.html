@@ -866,8 +866,12 @@
         img.src = imageData;
         const icon = slot.querySelector('.slot-icon');
         const hint = slot.querySelector('.slot-hint');
+        const btn = slot.querySelector('.upload-btn');
+        const label = slot.querySelector('.result-slot-label');
         if (icon) icon.style.display = 'none';
         if (hint) hint.style.display = 'none';
+        if (btn) btn.style.display = 'none';
+        if (label) label.style.display = 'none';
 
         // In Supabase speichern
         try {
