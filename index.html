@@ -135,7 +135,8 @@
     overflow: hidden;
     cursor: pointer;
   }
-  .result-slot input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .result-slot input[type="file"] { display: none; }
+  .upload-btn { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 4px 12px; font-size: 10px; font-weight: 800; color: #fff; cursor: pointer; white-space: nowrap; z-index: 2; font-family: 'Nunito', sans-serif; }
   .result-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .result-slot-label { font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; position: relative; z-index: 1; }
   .slot-before .result-slot-label { background: rgba(239,68,68,0.2); color: var(--red); }
@@ -373,17 +374,17 @@
     <!-- Karte 1 -->
     <div class="result-card fade-in">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="fotoHochladen(this)" data-slot-id="slot_1">
+        <div class="result-slot slot-before" data-slot-id="slot_1">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
-          <div class="slot-hint">Foto hinzufügen</div>
+          <button class="upload-btn" onclick="fotoHochladen(this.closest('.result-slot'))">+ Foto</button>
         </div>
-        <div class="result-slot slot-after" onclick="fotoHochladen(this)" data-slot-id="slot_2">
+        <div class="result-slot slot-after" data-slot-id="slot_2">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
-          <div class="slot-hint">Foto hinzufügen</div>
+          <button class="upload-btn" onclick="fotoHochladen(this.closest('.result-slot'))">+ Foto</button>
         </div>
       </div>
       <div class="result-footer">
@@ -395,17 +396,17 @@
     <!-- Karte 2 -->
     <div class="result-card fade-in">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="fotoHochladen(this)" data-slot-id="slot_3">
+        <div class="result-slot slot-before" data-slot-id="slot_3">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
-          <div class="slot-hint">Foto hinzufügen</div>
+          <button class="upload-btn" onclick="fotoHochladen(this.closest('.result-slot'))">+ Foto</button>
         </div>
-        <div class="result-slot slot-after" onclick="fotoHochladen(this)" data-slot-id="slot_4">
+        <div class="result-slot slot-after" data-slot-id="slot_4">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
-          <div class="slot-hint">Foto hinzufügen</div>
+          <button class="upload-btn" onclick="fotoHochladen(this.closest('.result-slot'))">+ Foto</button>
         </div>
       </div>
       <div class="result-footer">
@@ -417,17 +418,17 @@
     <!-- Karte 3 -->
     <div class="result-card fade-in">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="fotoHochladen(this)" data-slot-id="slot_5">
+        <div class="result-slot slot-before" data-slot-id="slot_5">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
-          <div class="slot-hint">Foto hinzufügen</div>
+          <button class="upload-btn" onclick="fotoHochladen(this.closest('.result-slot'))">+ Foto</button>
         </div>
-        <div class="result-slot slot-after" onclick="fotoHochladen(this)" data-slot-id="slot_6">
+        <div class="result-slot slot-after" data-slot-id="slot_6">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
-          <div class="slot-hint">Foto hinzufügen</div>
+          <button class="upload-btn" onclick="fotoHochladen(this.closest('.result-slot'))">+ Foto</button>
         </div>
       </div>
       <div class="result-footer">
@@ -439,17 +440,17 @@
     <!-- Karte 4 -->
     <div class="result-card fade-in">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="fotoHochladen(this)" data-slot-id="slot_7">
+        <div class="result-slot slot-before" data-slot-id="slot_7">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
-          <div class="slot-hint">Foto hinzufügen</div>
+          <button class="upload-btn" onclick="fotoHochladen(this.closest('.result-slot'))">+ Foto</button>
         </div>
-        <div class="result-slot slot-after" onclick="fotoHochladen(this)" data-slot-id="slot_8">
+        <div class="result-slot slot-after" data-slot-id="slot_8">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
-          <div class="slot-hint">Foto hinzufügen</div>
+          <button class="upload-btn" onclick="fotoHochladen(this.closest('.result-slot'))">+ Foto</button>
         </div>
       </div>
       <div class="result-footer">
@@ -847,7 +848,8 @@
       }
       fotoFreigegeben = true;
     }
-    slot.querySelector('input').click();
+    const input = slot.querySelector('input[type="file"]');
+    if (input) input.click();
   }
 
   async function zeigeVorschau(input) {
