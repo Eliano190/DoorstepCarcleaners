@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DoorStep Cleaners – Hochwertige Innenraum Reinigung</title>
+<title>DoorStep Cleaners – Innenraumreinigung</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fraunces:wght@700;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -332,10 +332,10 @@
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge fade-in">💧 Hochwertige Innenraum Reinigung · Köln</div>
+  <div class="hero-badge fade-in">💧 Innenraumreinigung · Köln</div>
   <h1 class="hero-title">DoorStep<br><span>Cleaners</span></h1>
   <p class="hero-sub">
-    <em>Wir kommen zu dir.</em> Hochwertige Innenraum Reinigung direkt vor deiner Haustür – schnell, gründlich, zum fairen Preis.
+    <em>Wir kommen zu dir.</em> Innenraumreinigung direkt vor deiner Haustür – schnell, gründlich, zum fairen Preis.
   </p>
   <div class="hero-buttons">
     <a href="#buchen" class="btn-primary">✦ Jetzt Termin buchen</a>
@@ -373,13 +373,13 @@
     <!-- Karte 1 -->
     <div class="result-card fade-in">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="fotoHochladen(this)">
+        <div class="result-slot slot-before" onclick="fotoHochladen(this)" data-slot-id="slot_1">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
           <div class="slot-hint">Foto hinzufügen</div>
         </div>
-        <div class="result-slot slot-after" onclick="fotoHochladen(this)">
+        <div class="result-slot slot-after" onclick="fotoHochladen(this)" data-slot-id="slot_2">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
@@ -395,13 +395,13 @@
     <!-- Karte 2 -->
     <div class="result-card fade-in">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="fotoHochladen(this)">
+        <div class="result-slot slot-before" onclick="fotoHochladen(this)" data-slot-id="slot_3">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
           <div class="slot-hint">Foto hinzufügen</div>
         </div>
-        <div class="result-slot slot-after" onclick="fotoHochladen(this)">
+        <div class="result-slot slot-after" onclick="fotoHochladen(this)" data-slot-id="slot_4">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
@@ -417,13 +417,13 @@
     <!-- Karte 3 -->
     <div class="result-card fade-in">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="fotoHochladen(this)">
+        <div class="result-slot slot-before" onclick="fotoHochladen(this)" data-slot-id="slot_5">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
           <div class="slot-hint">Foto hinzufügen</div>
         </div>
-        <div class="result-slot slot-after" onclick="fotoHochladen(this)">
+        <div class="result-slot slot-after" onclick="fotoHochladen(this)" data-slot-id="slot_6">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
@@ -439,13 +439,13 @@
     <!-- Karte 4 -->
     <div class="result-card fade-in">
       <div class="result-images">
-        <div class="result-slot slot-before" onclick="fotoHochladen(this)">
+        <div class="result-slot slot-before" onclick="fotoHochladen(this)" data-slot-id="slot_7">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Vorher</div>
           <div class="slot-icon">📷</div>
           <div class="slot-hint">Foto hinzufügen</div>
         </div>
-        <div class="result-slot slot-after" onclick="fotoHochladen(this)">
+        <div class="result-slot slot-after" onclick="fotoHochladen(this)" data-slot-id="slot_8">
           <input type="file" accept="image/*" onchange="zeigeVorschau(this)">
           <div class="result-slot-label">Nachher</div>
           <div class="slot-icon">✨</div>
@@ -690,7 +690,7 @@
 <div class="section-divider"></div>
 <footer>
   <div class="footer-brand">DoorStep <span>Cleaners</span></div>
-  <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px;">Hochwertige Innenraum Reinigung · Köln</div>
+  <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px;">Innenraumreinigung · Köln</div>
   <div class="footer-contact">
     <a href="tel:+4915157883622">📱 +49 151 57883622</a>
     <a href="mailto:elianorincon@icloud.com">✉️ elianorincon@icloud.com</a>
@@ -815,6 +815,29 @@
 
   let fotoFreigegeben = false;
 
+  // Fotos beim Laden aus Supabase holen
+  async function fotosLaden() {
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/photos?select=slot_id,image_data', {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+      });
+      const data = await res.json();
+      if (!Array.isArray(data)) return;
+      data.forEach(foto => {
+        const slot = document.querySelector('[data-slot-id="' + foto.slot_id + '"]');
+        if (slot) {
+          let img = slot.querySelector('img');
+          if (!img) { img = document.createElement('img'); slot.appendChild(img); }
+          img.src = foto.image_data;
+          const icon = slot.querySelector('.slot-icon');
+          const hint = slot.querySelector('.slot-hint');
+          if (icon) icon.style.display = 'none';
+          if (hint) hint.style.display = 'none';
+        }
+      });
+    } catch(e) { console.error('Fotos laden fehlgeschlagen', e); }
+  }
+
   function fotoHochladen(slot) {
     if (!fotoFreigegeben) {
       const pw = prompt('Passwort eingeben:');
@@ -827,20 +850,49 @@
     slot.querySelector('input').click();
   }
 
-  function zeigeVorschau(input) {
+  async function zeigeVorschau(input) {
     if (input.files && input.files[0]) {
       const reader = new FileReader();
-      reader.onload = e => {
+      reader.onload = async e => {
         const slot = input.parentElement;
+        const slotId = slot.getAttribute('data-slot-id');
+        const imageData = e.target.result;
+
+        // Vorschau zeigen
         let img = slot.querySelector('img');
         if (!img) { img = document.createElement('img'); slot.appendChild(img); }
-        img.src = e.target.result;
-        slot.querySelector('.slot-icon').style.display = 'none';
-        slot.querySelector('.slot-hint').style.display = 'none';
+        img.src = imageData;
+        const icon = slot.querySelector('.slot-icon');
+        const hint = slot.querySelector('.slot-hint');
+        if (icon) icon.style.display = 'none';
+        if (hint) hint.style.display = 'none';
+
+        // In Supabase speichern
+        try {
+          // Altes Foto löschen falls vorhanden
+          await fetch(SUPABASE_URL + '/rest/v1/photos?slot_id=eq.' + slotId, {
+            method: 'DELETE',
+            headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+          });
+          // Neues Foto speichern
+          await fetch(SUPABASE_URL + '/rest/v1/photos', {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_KEY,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({ slot_id: slotId, image_data: imageData })
+          });
+        } catch(e) { console.error('Foto speichern fehlgeschlagen', e); }
       };
       reader.readAsDataURL(input.files[0]);
     }
   }
+
+  // Fotos beim Start laden
+  fotosLaden();
 
   const datumFeld = document.getElementById('bDatum');
   const uhrzeitFeld = document.getElementById('bUhrzeit');
