@@ -137,7 +137,11 @@
   }
   .result-slot input[type="file"] { display: none; }
   .upload-btn { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 4px 12px; font-size: 10px; font-weight: 800; color: #fff; cursor: pointer; white-space: nowrap; z-index: 2; font-family: 'Nunito', sans-serif; }
-  .result-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .result-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; }
+  .result-slot.has-photo .result-slot-label { display: none !important; }
+  .result-slot.has-photo .slot-icon { display: none !important; }
+  .result-slot.has-photo .slot-hint { display: none !important; }
+  .result-slot.has-photo .upload-btn { display: none !important; }
   .result-slot-label { font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; position: relative; z-index: 1; }
   .slot-before .result-slot-label { background: rgba(239,68,68,0.2); color: var(--red); }
   .slot-after .result-slot-label { background: rgba(34,197,94,0.2); color: var(--green); }
@@ -864,14 +868,7 @@
         let img = slot.querySelector('img');
         if (!img) { img = document.createElement('img'); slot.appendChild(img); }
         img.src = imageData;
-        const icon = slot.querySelector('.slot-icon');
-        const hint = slot.querySelector('.slot-hint');
-        const btn = slot.querySelector('.upload-btn');
-        const label = slot.querySelector('.result-slot-label');
-        if (icon) icon.style.display = 'none';
-        if (hint) hint.style.display = 'none';
-        if (btn) btn.style.display = 'none';
-        if (label) label.style.display = 'none';
+        slot.classList.add('has-photo');
 
         // In Supabase speichern
         try {
