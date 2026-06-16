@@ -479,19 +479,19 @@
         <div class="preis-icon">🚗</div>
         <div class="preis-name">Kleinwagen</div>
         <div class="preis-row"><div class="preis-leistung">Innenreinigung</div><div class="preis-val">30 €</div></div>
-        <div class="preis-row"><div class="preis-leistung">Mit Fenster</div><div class="preis-val">25 €</div></div>
+        <div class="preis-row"><div class="preis-leistung">Mit Fenster</div><div class="preis-val">35 €</div></div>
       </div>
       <div class="preis-card fade-in">
         <div class="preis-icon">🚙</div>
         <div class="preis-name">Kombi</div>
-        <div class="preis-row"><div class="preis-leistung">Innenreinigung</div><div class="preis-val">30 €</div></div>
-        <div class="preis-row"><div class="preis-leistung">Mit Fenster</div><div class="preis-val">35 €</div></div>
+        <div class="preis-row"><div class="preis-leistung">Innenreinigung</div><div class="preis-val">40 €</div></div>
+        <div class="preis-row"><div class="preis-leistung">Mit Fenster</div><div class="preis-val">45 €</div></div>
       </div>
       <div class="preis-card fade-in">
         <div class="preis-icon">🛻</div>
         <div class="preis-name">SUV / Großraum</div>
-        <div class="preis-row"><div class="preis-leistung">Innenreinigung</div><div class="preis-val">40 €</div></div>
-        <div class="preis-row"><div class="preis-leistung">Mit Fenster</div><div class="preis-val">50 €</div></div>
+        <div class="preis-row"><div class="preis-leistung">Innenreinigung</div><div class="preis-val">50 €</div></div>
+        <div class="preis-row"><div class="preis-leistung">Mit Fenster</div><div class="preis-val">60 €</div></div>
       </div>
       <div class="preis-card fade-in">
         <div class="preis-icon">🚐</div>
@@ -710,9 +710,9 @@
 
   const preise = {
     kleinwagen: { basis: 30, fenster: 35 },
-    kombi:      { basis: 23, fenster: 28 },
-    suv:        { basis: 25, fenster: 30 },
-    van:        { basis: 45, fenster: 50 },
+    kombi:      { basis: 40, fenster: 45 },
+    suv:        { basis: 50, fenster: 60 },
+    van:        { basis: 70, fenster: 80 },
   };
 
   function preisBerechnen() {
@@ -823,7 +823,7 @@
   // Fotos beim Laden aus Supabase holen
   async function fotosLaden() {
     try {
-      const res = await fetch(SUPABASE_URL + '/rest/v1/photos?select=slot_id,image_data', {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/photos?select=slot_id,image_data&limit=100', {
         headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
       });
       const data = await res.json();
